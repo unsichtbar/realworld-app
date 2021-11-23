@@ -1,0 +1,16 @@
+version: "3.0"
+services:
+  realworldwebui:
+    build:
+      context: ./web-ui
+    container_name: realworld_webui
+    ports:
+    - 50970:3000
+    restart: unless-stopped
+  realworldapi:
+    build:
+      context: ./realworld-api
+    container_name: realworld_api
+    ports:
+    - 50971:3000
+    restart: unless-stopped
