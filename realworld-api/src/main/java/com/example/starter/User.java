@@ -4,7 +4,7 @@ import io.vertx.core.json.JsonObject;
 
 import java.util.UUID;
 
-public class User implements Json {
+public class User implements Jsonable {
 
   UUID id;
 
