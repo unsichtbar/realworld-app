@@ -1,6 +1,7 @@
 package com.example.starter;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -16,16 +17,25 @@ public class UserVerticle extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    vertx.eventBus().<JsonObject>consumer("create_user_command", handler -> {
-        User user = new User();
-        UUID id = UUID.randomUUID();
-        user.id = id;
-        db.put(id, user);
-        vertx.eventBus().send("user_created", user.toJson());
-    });
+    vertx.eventBus().consumer("create_user_command", this::createUser);
 
-    vertx.eventBus().consumer("read_all_users_query", handler -> {
-      vertx.eventBus().send("read_all_users_query_response", new JsonObject().put("content", new JsonArray(db.values().stream().map(User::toJson).collect(Collectors.toList()))));
-    });
+
+    vertx.eventBus().consumer("read_all_users_query", this::readAllUsers);
+  }
+
+  private void createUser(Message<JsonObject> message) {
+
+    User user = new User();
+    UUID id = UUID.randomUUID();
+    user.id = id;
+    db.put(id, user);
+    message.reply(user.toJson());
+
+
+  }
+
+  private void readAllUsers(Message<JsonObject> message) {
+    message.reply(
+      new JsonObject().put("content", new JsonArray(db.values().stream().map(User::toJson).collect(Collectors.toList()))));
   }
 }

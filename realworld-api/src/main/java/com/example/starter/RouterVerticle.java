@@ -28,25 +28,24 @@ public class RouterVerticle extends AbstractVerticle {
     router.get("/echo").handler(routingContext -> {
 
       HttpServerResponse response = routingContext.response();
-      response.putHeader("content-type", "text/plain").send("Hey there").result();
+      response.putHeader("content-type", "text/plain").end("Hey there");
     });
 
     router.post("/users").handler(routingContext -> {
       HttpServerResponse response = routingContext.response();
-      vertx.eventBus().send("create_user_command", new JsonObject());
-      vertx.eventBus().consumer("user_created", (handler) -> {
-          response.putHeader("content-type", "text/plain").send("Your user was created!").result();
 
-      });
+      vertx.eventBus().request("create_user_command", new JsonObject())
+        .onSuccess(result -> {
+          response.putHeader("content-type", "text/plain").end("Your user was created");
+        });
     });
 
     router.get("/users").handler(routingContext -> {
       HttpServerResponse response = routingContext.response();
-      vertx.eventBus().send("read_all_users_query", null);
-      vertx.eventBus().<JsonObject>consumer("read_all_users_query_response", handler -> {
-        response.putHeader("content-type", "application/json").send(handler.body().toBuffer()).result();
-
-      });
+      vertx.eventBus().request("read_all_users_query", null)
+        .onSuccess(result -> {
+          response.putHeader("content-type", "application/json").end(result.body().toString());
+        });
     });
 
 
