@@ -7,12 +7,12 @@ import io.vertx.core.json.JsonObject;
 public class MainVerticle extends AbstractVerticle {
 
   @Override
-  public void start(Promise<Void> startPromise) throws Exception {
+  public void start() throws Exception {
 
 
     vertx.deployVerticle(new RouterVerticle());
-    vertx.deployVerticle(new UserVerticle());
-
+    //vertx.deployVerticle(new UserVerticle());
+    vertx.deployVerticle(new SensorVerticle());
 
   }
 }

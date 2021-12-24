@@ -1,11 +1,13 @@
-FROM node:16
+FROM openjdk:16-alpine3.13
 
 WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm install
+RUN mvn package
 
-EXPOSE 3000
+EXPOSE 8888
 
-CMD ["npm", "run", "start:prod"]
+CMD ["mvn", "exec:java"]
+
+
