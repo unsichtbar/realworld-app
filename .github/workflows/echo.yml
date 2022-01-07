@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Echo env.USER
+name: Echo secrets.USER
 
 on:
   push:
@@ -23,4 +23,4 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: echo
-      run: echo "${env.USER}"
+      run: echo "${{ secrets.USER }}"
