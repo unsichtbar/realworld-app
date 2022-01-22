@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.acme.Actions;
+import org.acme.domain.Actions;
 import org.acme.domain.RegisterUserPayload;
 import org.acme.domain.UserDto;
 import org.acme.presentation.openapitools.api.UserApi;

@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.domain;
 
 public class Actions {
     public static final String GET_ARTICLE = "GET_ARTICLE";

@@ -1,21 +1,16 @@
 package org.acme.application;
 
-import java.time.Duration;
-import java.util.concurrent.CompletableFuture;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.acme.domain.Actions;
+import org.acme.domain.RegisterUserPayload;
+import org.acme.domain.UserDto;
+import org.acme.domain.UserRegistrationException;
 import org.springframework.util.StringUtils;
 
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
-
-import org.acme.domain.RegisterUserPayload;
-import org.acme.domain.UserDto;
-import org.acme.domain.UserRegistrationException;
-import org.acme.infrastructure.UserEntity;
-import org.acme.Actions;
 
 @ApplicationScoped
 public class UserService {
