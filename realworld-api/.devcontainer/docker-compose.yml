@@ -1,0 +1,17 @@
+version: '3.0'
+services:
+  realworld-api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: sleep infinity
+    volumes:
+    - ..:/workspace:cached
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
