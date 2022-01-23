@@ -1,13 +1,19 @@
 package org.acme.infrastructure;
 
 import org.mapstruct.Mapper;
+
+import io.smallrye.mutiny.Uni;
+
+import java.util.Optional;
+
 import org.acme.domain.*;
 
 @Mapper(componentModel = "cdi")
 public interface UserMapper {
 
-    UserDto map(UserEntity entity);
+    User map(UserEntity entity);
 
-    UserEntity map(UserDto dto);
+    UserEntity map(User dto);
+
     
 }

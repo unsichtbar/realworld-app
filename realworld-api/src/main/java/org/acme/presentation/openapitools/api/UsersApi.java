@@ -9,6 +9,7 @@ import org.acme.presentation.openapitools.model.GenericErrorModelDto;
 import org.acme.presentation.openapitools.model.LoginUserRequestDto;
 import org.acme.presentation.openapitools.model.NewUserRequestDto;
 import org.acme.presentation.openapitools.model.UserResponseDto;
+import org.jboss.resteasy.reactive.RestResponse;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -25,11 +26,11 @@ import javax.validation.Valid;
     @POST
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    Uni<UserResponseDto> createUser(@Valid @NotNull NewUserRequestDto body);
+    Uni<RestResponse<UserResponseDto>> createUser(@Valid @NotNull NewUserRequestDto body);
 
     @POST
     @Path("/login")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    Uni<UserResponseDto> login(@Valid @NotNull LoginUserRequestDto body);
+    Uni<RestResponse<UserResponseDto>> login(@Valid @NotNull LoginUserRequestDto body);
 }

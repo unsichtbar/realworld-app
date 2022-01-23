@@ -9,5 +9,8 @@ public class Actions {
     public static final String REGISTER_USER = "CREATE_USER";
 
 
+    public static final String LOGIN_USER = "LOGIN_USER";
+
+
 
 }

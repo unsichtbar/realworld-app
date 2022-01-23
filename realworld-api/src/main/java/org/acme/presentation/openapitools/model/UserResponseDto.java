@@ -8,20 +8,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import org.acme.domain.UserDto;
+import org.acme.domain.User;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
 @JsonTypeName("UserResponse")
-@javax.annotation.Generated(value = "org.acme.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-01-14T06:07:13.430233404Z[Etc/UTC]")public class UserResponseDto   {
+@javax.annotation.Generated(value = "org.acme.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-01-14T06:07:13.430233404Z[Etc/UTC]")public class UserResponseDto  extends GenericErrorModelDto {
   
-  private @Valid UserDto user;
+  private @Valid User user;
 
   /**
    **/
-  public UserResponseDto user(UserDto user) {
+  public UserResponseDto user(User user) {
     this.user = user;
     return this;
   }
@@ -31,12 +31,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   
   @JsonProperty("user")
   @NotNull
-  public UserDto getUser() {
+  public User getUser() {
     return user;
   }
 
   @JsonProperty("user")
-  public void setUser(UserDto user) {
+  public void setUser(User user) {
     this.user = user;
   }
 

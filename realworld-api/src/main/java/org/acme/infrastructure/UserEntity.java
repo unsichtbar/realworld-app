@@ -1,5 +1,7 @@
 package org.acme.infrastructure;
 
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -66,7 +68,17 @@ public class UserEntity extends PanacheEntity {
 
 
     public static Uni<UserEntity> findByUsername(String username) {
-        return find("select * from realworld_users where username=:username", username).firstResult();
+        return find("username", username).firstResult();
+    }
+
+    public static Uni<Optional<UserEntity>> findByEmail(String email) {
+        
+        return find("email", email).firstResult().map(item -> {
+            UserEntity entity = (UserEntity) item;
+
+            return Optional.ofNullable(entity);
+        });
+        
     }
     
 }

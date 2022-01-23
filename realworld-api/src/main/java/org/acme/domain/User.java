@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("User")
-public class UserDto   {
+public class User   {
   
   private @Valid String email;
   private @Valid String token;
@@ -26,7 +26,7 @@ public class UserDto   {
 
   /**
    **/
-  public UserDto email(String email) {
+  public User email(String email) {
     this.email = email;
     return this;
   }
@@ -34,7 +34,7 @@ public class UserDto   {
 
     /**
    **/
-  public UserDto password(String password) {
+  public User password(String password) {
     this.password = password;
     return this;
   }
@@ -61,7 +61,7 @@ public class UserDto   {
 
 /**
    **/
-  public UserDto token(String token) {
+  public User token(String token) {
     this.token = token;
     return this;
   }
@@ -82,7 +82,7 @@ public class UserDto   {
 
 /**
    **/
-  public UserDto username(String username) {
+  public User username(String username) {
     this.username = username;
     return this;
   }
@@ -103,7 +103,7 @@ public class UserDto   {
 
 /**
    **/
-  public UserDto bio(String bio) {
+  public User bio(String bio) {
     this.bio = bio;
     return this;
   }
@@ -124,7 +124,7 @@ public class UserDto   {
 
 /**
    **/
-  public UserDto image(String image) {
+  public User image(String image) {
     this.image = image;
     return this;
   }
@@ -152,7 +152,7 @@ public class UserDto   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserDto user = (UserDto) o;
+    User user = (User) o;
     return Objects.equals(this.email, user.email) &&
         Objects.equals(this.token, user.token) &&
         Objects.equals(this.username, user.username) &&
