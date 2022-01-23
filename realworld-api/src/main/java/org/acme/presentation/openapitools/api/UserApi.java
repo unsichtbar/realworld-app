@@ -8,6 +8,8 @@ import javax.ws.rs.core.Response;
 import org.acme.presentation.openapitools.model.GenericErrorModelDto;
 import org.acme.presentation.openapitools.model.UpdateUserRequestDto;
 import org.acme.presentation.openapitools.model.UserResponseDto;
+import org.jboss.resteasy.reactive.RestHeader;
+import org.jboss.resteasy.reactive.RestResponse;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -20,7 +22,7 @@ import javax.validation.Valid;
 
     @GET
     @Produces({ "application/json" })
-    Uni<UserResponseDto> getCurrentUser();
+    Uni<RestResponse<UserResponseDto>> getCurrentUser(@RestHeader("Authorization") String token);
 
     @PUT
     @Consumes({ "application/json" })

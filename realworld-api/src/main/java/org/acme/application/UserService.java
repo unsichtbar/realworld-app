@@ -1,9 +1,12 @@
 package org.acme.application;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.acme.domain.Actions;
+import org.acme.domain.Jwt;
 import org.acme.domain.LoginUserPayload;
 import org.acme.domain.RegisterUserPayload;
 import org.acme.domain.User;
@@ -19,6 +22,7 @@ public class UserService {
 
     @Inject private JwtGenerator jwtGenerator;
     @Inject private UserRepository userRepository;
+    @Inject private JwtDecoder jwtDecoder;
 
 
     @ConsumeEvent(Actions.LOGIN_USER)
@@ -78,5 +82,13 @@ public class UserService {
         }
 
     }
+
+    @ConsumeEvent(Actions.CURRENT_USER)
+    Uni<Optional<User>> getUserFromToken(Jwt jwt) {
+        String email = jwtDecoder.decodeEmail(jwt);
+        return this.userRepository.findByEmail(email);
+    }
+
+ 
 
 }

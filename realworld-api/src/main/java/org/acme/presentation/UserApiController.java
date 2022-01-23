@@ -1,6 +1,7 @@
 package org.acme.presentation;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.acme.domain.Actions;
+import org.acme.domain.Jwt;
 import org.acme.domain.LoginUserPayload;
 import org.acme.domain.RegisterUserPayload;
 import org.acme.domain.User;
@@ -41,12 +43,9 @@ class UserApiController implements UserApi, UsersApi {
             UserResponseDto response = new UserResponseDto();
             response.setUser(item.body());
             return ResponseBuilder.accepted(response).build();
-        }).onFailure()
-                .recoverWithItem((throwable) -> ResponseBuilder.accepted((UserResponseDto) new UserResponseDto()
-                        .errors(new GenericErrorModelErrorsDto()
-                                .body(List.of("Something went wrong"))))
-                                .status(422)
-                        .build());
+        })
+                .onFailure()
+                .recoverWithItem((throwable) -> makeError("Something went wrong."));
     }
 
     @Override
@@ -56,19 +55,38 @@ class UserApiController implements UserApi, UsersApi {
             UserResponseDto res = new UserResponseDto();
             res.setUser(item.body());
             return ResponseBuilder.ok(res).build();
-        });
+        })
+                .onFailure()
+                .recoverWithItem((throwable) -> makeError("Something went wrong."));
     }
 
-    @Override
-    public Uni<UserResponseDto> getCurrentUser() {
-        // TODO Auto-generated method stub
-        return null;
+    private RestResponse<UserResponseDto> makeError(String message) {
+        return ResponseBuilder.accepted(makeErrorBody(message)).status(422).build();
+    }
+
+    private UserResponseDto makeErrorBody(String error) {
+        return (UserResponseDto) new UserResponseDto()
+                .errors(new GenericErrorModelErrorsDto()
+                        .body(List.of(error)));
     }
 
     @Override
     public Uni<UserResponseDto> updateCurrentUser(@Valid @NotNull UpdateUserRequestDto body) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public Uni<RestResponse<UserResponseDto>> getCurrentUser(String token) {
+        Jwt jwt = new Jwt(token);
+        return this.bus.<Optional<User>>request(Actions.CURRENT_USER, jwt).map((user) -> {
+
+            if (user.body().isEmpty()) {
+
+                return ResponseBuilder.create(Status.UNAUTHORIZED, (UserResponseDto) null).build();
+            }
+            return ResponseBuilder.ok(new UserResponseDto().user(user.body().get())).build();
+        });
     }
 
 }

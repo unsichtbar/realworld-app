@@ -11,6 +11,8 @@ public class Actions {
 
     public static final String LOGIN_USER = "LOGIN_USER";
 
+    public static final String CURRENT_USER = "CURRENT_USER";
+
 
 
 }
