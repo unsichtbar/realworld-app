@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.acme.application.UserRepository;
+import org.acme.application.user.UserRepository;
 import org.acme.domain.User;
 
 import io.smallrye.mutiny.Uni;

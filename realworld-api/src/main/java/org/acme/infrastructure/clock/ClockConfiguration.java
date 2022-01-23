@@ -1,4 +1,4 @@
-package org.acme.infrastructure.configuration;
+package org.acme.infrastructure.clock;
 
 import java.time.Clock;
 

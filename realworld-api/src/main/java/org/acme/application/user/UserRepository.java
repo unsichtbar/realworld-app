@@ -1,4 +1,4 @@
-package org.acme.application;
+package org.acme.application.user;
 
 import java.util.Optional;
 
@@ -11,5 +11,5 @@ public interface UserRepository {
     Uni<User> save(User user);
 
     Uni<Optional<User>> findByEmail(String email);
-    
+
 }
