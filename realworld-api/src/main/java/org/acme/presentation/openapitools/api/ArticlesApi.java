@@ -13,6 +13,7 @@ import org.acme.presentation.openapitools.model.NewCommentRequestDto;
 import org.acme.presentation.openapitools.model.SingleArticleResponseDto;
 import org.acme.presentation.openapitools.model.SingleCommentResponseDto;
 import org.acme.presentation.openapitools.model.UpdateArticleRequestDto;
+import org.jboss.resteasy.reactive.RestResponse;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -27,19 +28,19 @@ public interface ArticlesApi {
     @POST
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    Uni<SingleArticleResponseDto> createArticle(@Valid @NotNull NewArticleRequestDto article);
+    Uni<RestResponse<SingleArticleResponseDto>> createArticle(@Valid @NotNull NewArticleRequestDto article);
 
     @POST
     @Path("/{slug}/comments")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    SingleCommentResponseDto createArticleComment(@PathParam("slug") String slug,
+    Uni<RestResponse<SingleCommentResponseDto>> createArticleComment(@PathParam("slug") String slug,
             @Valid @NotNull NewCommentRequestDto comment);
 
     @POST
     @Path("/{slug}/favorite")
     @Produces({ "application/json" })
-    SingleArticleResponseDto createArticleFavorite(@PathParam("slug") String slug);
+    Uni<RestResponse<SingleArticleResponseDto>> createArticleFavorite(@PathParam("slug") String slug);
 
     @DELETE
     @Path("/{slug}")
@@ -54,34 +55,34 @@ public interface ArticlesApi {
     @DELETE
     @Path("/{slug}/favorite")
     @Produces({ "application/json" })
-    SingleArticleResponseDto deleteArticleFavorite(@PathParam("slug") String slug);
+    Uni<RestResponse<SingleArticleResponseDto>> deleteArticleFavorite(@PathParam("slug") String slug);
 
     @GET
     @Path("/{slug}")
     @Produces({ "application/json" })
-    Uni<SingleArticleResponseDto> getArticle(@PathParam("slug") String slug);
+    Uni<RestResponse<SingleArticleResponseDto>> getArticle(@PathParam("slug") String slug);
 
     @GET
     @Path("/{slug}/comments")
     @Produces({ "application/json" })
-    MultipleCommentsResponseDto getArticleComments(@PathParam("slug") String slug);
+    Uni<RestResponse<MultipleCommentsResponseDto>> getArticleComments(@PathParam("slug") String slug);
 
     @GET
     @Produces({ "application/json" })
-    Uni<MultipleArticlesResponseDto> getArticles(@QueryParam("tag") String tag, @QueryParam("author") String author,
+    Uni<RestResponse<MultipleArticlesResponseDto>> getArticles(@QueryParam("tag") String tag, @QueryParam("author") String author,
             @QueryParam("favorited") String favorited, @QueryParam("limit") @DefaultValue("20") Integer limit,
             @QueryParam("offset") @DefaultValue("0") Integer offset);
 
     @GET
     @Path("/feed")
     @Produces({ "application/json" })
-    MultipleArticlesResponseDto getArticlesFeed(@QueryParam("limit") @DefaultValue("20") Integer limit,
+    Uni<RestResponse<MultipleArticlesResponseDto>> getArticlesFeed(@QueryParam("limit") @DefaultValue("20") Integer limit,
             @QueryParam("offset") @DefaultValue("0") Integer offset);
 
     @PUT
     @Path("/{slug}")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    SingleArticleResponseDto updateArticle(@PathParam("slug") String slug,
+    Uni<RestResponse<SingleArticleResponseDto>> updateArticle(@PathParam("slug") String slug,
             @Valid @NotNull UpdateArticleRequestDto article);
 }

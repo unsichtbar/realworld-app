@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import org.acme.domain.User;
+import org.acme.domain.models.User;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 

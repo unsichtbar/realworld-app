@@ -1,6 +1,6 @@
 package org.acme.application.user;
 
-import org.acme.domain.Jwt;
+import org.acme.domain.models.Jwt;
 
 public interface JwtDecoder {
 

@@ -9,10 +9,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.acme.domain.Actions;
-import org.acme.domain.Jwt;
-import org.acme.domain.LoginUserPayload;
-import org.acme.domain.RegisterUserPayload;
-import org.acme.domain.User;
+import org.acme.domain.LogUserInCommand;
+import org.acme.domain.RegisterUserCommand;
+import org.acme.domain.models.Jwt;
+import org.acme.domain.models.User;
 import org.acme.presentation.openapitools.api.UserApi;
 import org.acme.presentation.openapitools.api.UsersApi;
 import org.acme.presentation.openapitools.model.GenericErrorModelDto;
@@ -36,7 +36,7 @@ class UserApiController implements UserApi, UsersApi {
 
     @Override
     public Uni<RestResponse<UserResponseDto>> createUser(@Valid @NotNull NewUserRequestDto body) {
-        RegisterUserPayload payload = new RegisterUserPayload(body.getUser().getUsername(),
+        RegisterUserCommand payload = new RegisterUserCommand(body.getUser().getUsername(),
                 body.getUser().getPassword(), body.getUser().getEmail());
 
         return this.bus.<User>request(Actions.REGISTER_USER, payload).map(item -> {
@@ -50,7 +50,7 @@ class UserApiController implements UserApi, UsersApi {
 
     @Override
     public Uni<RestResponse<UserResponseDto>> login(@Valid @NotNull LoginUserRequestDto body) {
-        LoginUserPayload command = new LoginUserPayload(body.getUser().getEmail(), body.getUser().getPassword());
+        LogUserInCommand command = new LogUserInCommand(body.getUser().getEmail(), body.getUser().getPassword());
         return this.bus.<User>request(Actions.LOGIN_USER, command).map(item -> {
             UserResponseDto res = new UserResponseDto();
             res.setUser(item.body());

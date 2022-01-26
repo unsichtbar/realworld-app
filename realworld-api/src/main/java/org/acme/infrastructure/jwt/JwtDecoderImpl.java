@@ -3,7 +3,7 @@ package org.acme.infrastructure.jwt;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.acme.application.user.JwtDecoder;
-import org.acme.domain.Jwt;
+import org.acme.domain.models.Jwt;
 
 @ApplicationScoped class JwtDecoderImpl implements JwtDecoder{
 

@@ -1,6 +1,6 @@
 package org.acme.application.user;
 
-import org.acme.domain.User;
+import org.acme.domain.models.User;
 
 public interface JwtGenerator {
 

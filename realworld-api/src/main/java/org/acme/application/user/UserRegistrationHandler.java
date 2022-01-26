@@ -1,17 +1,12 @@
 package org.acme.application.user;
 
-import java.util.Optional;
-
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.acme.domain.Actions;
-import org.acme.domain.Jwt;
-import org.acme.domain.LoginUserPayload;
-import org.acme.domain.RegisterUserPayload;
-import org.acme.domain.User;
-import org.acme.domain.UserLoginException;
-import org.acme.domain.UserRegistrationException;
+import org.acme.domain.RegisterUserCommand;
+import org.acme.domain.exceptions.UserRegistrationException;
+import org.acme.domain.models.User;
 import org.springframework.util.StringUtils;
 
 import io.quarkus.vertx.ConsumeEvent;
@@ -25,7 +20,8 @@ public class UserRegistrationHandler {
     private UserRepository userRepository;
 
     @ConsumeEvent(Actions.REGISTER_USER)
-    Uni<User> createUser(RegisterUserPayload createUserPayload) throws InterruptedException {
+    @Transactional
+    Uni<User> createUser(RegisterUserCommand createUserPayload) throws InterruptedException {
 
         preconditions(createUserPayload);
         return userRepository.findByEmail(createUserPayload.email())
@@ -46,7 +42,7 @@ public class UserRegistrationHandler {
 
     }
 
-    void preconditions(RegisterUserPayload payload) {
+    void preconditions(RegisterUserCommand payload) {
         if (StringUtils.isEmpty(payload.password())) {
             throw new UserRegistrationException();
         }

@@ -2,7 +2,7 @@ package org.acme.application.user;
 
 import java.util.Optional;
 
-import org.acme.domain.User;
+import org.acme.domain.models.User;
 
 import io.smallrye.mutiny.Uni;
 

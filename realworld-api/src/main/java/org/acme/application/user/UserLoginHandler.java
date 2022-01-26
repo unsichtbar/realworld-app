@@ -3,9 +3,9 @@ package org.acme.application.user;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.acme.domain.LoginUserPayload;
-import org.acme.domain.User;
-import org.acme.domain.UserLoginException;
+import org.acme.domain.LogUserInCommand;
+import org.acme.domain.exceptions.UserLoginException;
+import org.acme.domain.models.User;
 
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
@@ -20,7 +20,7 @@ class UserLoginHandler {
     JwtGenerator jwtGenerator;
 
     @ConsumeEvent(Actions.LOGIN_USER)
-    Uni<User> loginUser(LoginUserPayload loginPayload) {
+    Uni<User> loginUser(LogUserInCommand loginPayload) {
 
         return userRepository.findByEmail(loginPayload.email())
                 .map(found -> {

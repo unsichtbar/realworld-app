@@ -6,8 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.acme.domain.Actions;
-import org.acme.domain.Jwt;
-import org.acme.domain.User;
+import org.acme.domain.models.Jwt;
+import org.acme.domain.models.User;
 
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
