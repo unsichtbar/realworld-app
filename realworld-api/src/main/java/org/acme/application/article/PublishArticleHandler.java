@@ -13,14 +13,14 @@ import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
-class ArticleService {
+class PublishArticleHandler {
 
     @Inject
     private ArticleRepository articleRepository;
 
-    @ConsumeEvent(Actions.CREATE_ARTICLE)
+    @ConsumeEvent(Actions.PUBLISH_ARTICLE)
     @Transactional
-    public Uni<Article> createArticle(PublishArticleCommand payload) {
+    public Uni<Article> handle(PublishArticleCommand payload) {
 
         return articleRepository.findBySlug(slugify(payload.title()))
                 .flatMap(item -> {

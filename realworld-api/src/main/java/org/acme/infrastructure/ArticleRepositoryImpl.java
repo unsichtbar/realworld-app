@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.acme.application.article.ArticleRepository;
 import org.acme.domain.models.Article;
+import org.acme.domain.models.Comment;
 
 import io.smallrye.mutiny.Uni;
 
@@ -32,6 +33,12 @@ class ArticleRepositoryImpl implements ArticleRepository {
             if(entity == null ) throw new RuntimeException("something failed saving the article.");
             return mapper.map(entity);
         });
+    }
+
+    @Override
+    public Uni<Comment> saveComment(Comment comment, Article article) {
+        // TODO Auto-generated method stub
+        return Uni.createFrom().item(new Comment());
     }
 
 }

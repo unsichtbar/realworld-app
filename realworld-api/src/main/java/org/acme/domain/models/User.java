@@ -9,11 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-
-
 @JsonTypeName("User")
-public class User   {
-  
+public class User {
+
   private @Valid String email;
   private @Valid String token;
   private @Valid String username;
@@ -30,23 +28,19 @@ public class User   {
     return this;
   }
 
-
-    /**
-   **/
+  /**
+  **/
   public User password(String password) {
     this.password = password;
     return this;
   }
 
-    /**
-   **/
+  /**
+  **/
   public String getPassword() {
     return this.password;
   }
 
-  
-
-  
   @JsonProperty("email")
   @NotNull
   public String getEmail() {
@@ -58,16 +52,13 @@ public class User   {
     this.email = email;
   }
 
-/**
+  /**
    **/
   public User token(String token) {
     this.token = token;
     return this;
   }
 
-  
-
-  
   @JsonProperty("token")
   @NotNull
   public String getToken() {
@@ -79,16 +70,13 @@ public class User   {
     this.token = token;
   }
 
-/**
+  /**
    **/
   public User username(String username) {
     this.username = username;
     return this;
   }
 
-  
-
-  
   @JsonProperty("username")
   @NotNull
   public String getUsername() {
@@ -100,16 +88,13 @@ public class User   {
     this.username = username;
   }
 
-/**
+  /**
    **/
   public User bio(String bio) {
     this.bio = bio;
     return this;
   }
 
-  
-
-  
   @JsonProperty("bio")
   @NotNull
   public String getBio() {
@@ -121,16 +106,13 @@ public class User   {
     this.bio = bio;
   }
 
-/**
+  /**
    **/
   public User image(String image) {
     this.image = image;
     return this;
   }
 
-  
-
-  
   @JsonProperty("image")
   @NotNull
   public String getImage() {
@@ -141,7 +123,6 @@ public class User   {
   public void setImage(String image) {
     this.image = image;
   }
-
 
   @Override
   public boolean equals(Object o) {
@@ -168,7 +149,7 @@ public class User   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
-    
+
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
@@ -189,6 +170,4 @@ public class User   {
     return o.toString().replace("\n", "\n    ");
   }
 
-
 }
-

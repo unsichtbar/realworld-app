@@ -6,7 +6,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.acme.domain.Actions;
+import org.acme.domain.CommentOnArticleCommand;
 import org.acme.domain.models.Article;
+import org.acme.domain.models.Comment;
 import org.acme.domain.PublishArticleCommand;
 import org.acme.presentation.openapitools.api.ArticlesApi;
 import org.acme.presentation.openapitools.model.MultipleArticlesResponseDto;
@@ -31,6 +33,9 @@ class ArticleApiController implements ArticlesApi {
     @Inject
     ArticleMapper mapper;
 
+    @Inject
+    private CommentMapper commentMapper;
+
     @Override
     public Uni<RestResponse<SingleArticleResponseDto>> createArticle(@Valid @NotNull NewArticleRequestDto article) {
 
@@ -38,7 +43,7 @@ class ArticleApiController implements ArticlesApi {
                 article.getArticle().getDescription(), article.getArticle().getBody(),
                 article.getArticle().getTagList());
 
-        return this.bus.<Article>request(Actions.CREATE_ARTICLE, createArticlePayload)
+        return this.bus.<Article>request(Actions.PUBLISH_ARTICLE, createArticlePayload)
                 .map(item -> {
                     SingleArticleResponseDto res = new SingleArticleResponseDto();
                     res.article(mapper.map(item.body()));
@@ -51,8 +56,15 @@ class ArticleApiController implements ArticlesApi {
     @Override
     public Uni<RestResponse<SingleCommentResponseDto>> createArticleComment(String slug,
             @Valid @NotNull NewCommentRequestDto comment) {
-        // TODO Auto-generated method stub
-        return null;
+        CommentOnArticleCommand message = new CommentOnArticleCommand(slug, comment.getComment().getBody());
+        return this.bus.<Comment>request(Actions.COMMENT_ON_ARTICLE, message)
+                .map(item -> {
+
+                    Comment createdComment = item.body();
+                    return ResponseBuilder
+                            .ok(new SingleCommentResponseDto().comment(commentMapper.map(createdComment)))
+                            .build();
+                });
     }
 
     @Override
