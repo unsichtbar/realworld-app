@@ -2,6 +2,7 @@ package org.acme.domain.models;
 
 import java.time.LocalDateTime;
 
+
 public class Comment {
 
     private Integer id;

@@ -12,11 +12,10 @@ import org.acme.domain.models.User;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-
-
 @JsonTypeName("UserResponse")
-@javax.annotation.Generated(value = "org.acme.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-01-14T06:07:13.430233404Z[Etc/UTC]")public class UserResponseDto  extends GenericErrorModelDto {
-  
+@javax.annotation.Generated(value = "org.acme.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-01-14T06:07:13.430233404Z[Etc/UTC]")
+public class UserResponseDto extends GenericErrorModelDto {
+
   private @Valid User user;
 
   /**
@@ -26,9 +25,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
     return this;
   }
 
-  
-
-  
   @JsonProperty("user")
   @NotNull
   public User getUser() {
@@ -39,7 +35,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   public void setUser(User user) {
     this.user = user;
   }
-
 
   @Override
   public boolean equals(Object o) {
@@ -62,7 +57,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserResponse {\n");
-    
+
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -79,6 +74,4 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
     return o.toString().replace("\n", "\n    ");
   }
 
-
 }
-
