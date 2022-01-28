@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.acme.application.Handler;
 import org.acme.application.UserPrincipal;
 import org.acme.domain.Actions;
 import org.acme.domain.CommentOnArticleCommand;
@@ -20,7 +21,7 @@ import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
-class CommentOnArticleHandler {
+class CommentOnArticleHandler implements Handler<Comment, CommentOnArticleCommand> {
 
     @Inject
     private ArticleRepository repository;

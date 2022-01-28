@@ -4,6 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.acme.application.Handler;
 import org.acme.domain.Actions;
 import org.acme.domain.models.Article;
 import org.acme.domain.PublishArticleCommand;
@@ -13,7 +14,7 @@ import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
-class PublishArticleHandler {
+class PublishArticleHandler implements Handler<Article, PublishArticleCommand> {
 
     @Inject
     private ArticleRepository articleRepository;

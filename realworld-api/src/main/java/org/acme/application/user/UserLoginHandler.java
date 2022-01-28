@@ -5,14 +5,17 @@ import javax.inject.Inject;
 
 import org.acme.domain.LogUserInCommand;
 import org.acme.domain.exceptions.UserLoginException;
+import org.acme.domain.models.Article;
 import org.acme.domain.models.User;
 
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
+
+import org.acme.application.Handler;
 import org.acme.domain.Actions;
 
 @ApplicationScoped
-class UserLoginHandler {
+class UserLoginHandler implements Handler<User, LogUserInCommand> {
 
     @Inject
     UserRepository userRepository;
@@ -20,7 +23,7 @@ class UserLoginHandler {
     JwtGenerator jwtGenerator;
 
     @ConsumeEvent(Actions.LOGIN_USER)
-    Uni<User> loginUser(LogUserInCommand loginPayload) {
+    public Uni<User> handle(LogUserInCommand loginPayload) {
 
         return userRepository.findByEmail(loginPayload.email())
                 .map(found -> {

@@ -1,8 +1,10 @@
 package org.acme.application.user;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.acme.application.Handler;
 import org.acme.domain.Actions;
 import org.acme.domain.RegisterUserCommand;
 import org.acme.domain.exceptions.UserRegistrationException;
@@ -12,7 +14,7 @@ import org.springframework.util.StringUtils;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 
-public class UserRegistrationHandler {
+@ApplicationScoped class UserRegistrationHandler implements Handler<User, RegisterUserCommand> {
 
     @Inject
     private JwtGenerator jwtGenerator;
@@ -21,7 +23,7 @@ public class UserRegistrationHandler {
 
     @ConsumeEvent(Actions.REGISTER_USER)
     @Transactional
-    Uni<User> createUser(RegisterUserCommand createUserPayload) throws InterruptedException {
+    public Uni<User> handle(RegisterUserCommand createUserPayload) {
 
         preconditions(createUserPayload);
         return userRepository.findByEmail(createUserPayload.email())
